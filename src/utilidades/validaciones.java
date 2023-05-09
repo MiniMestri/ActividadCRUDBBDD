@@ -106,40 +106,4 @@ public class validaciones {
 		return fecha;
 	}
 
-	/**
-	 * Método que genera un número aleatorio de 10.000.000-100.000.000. Se
-	 * transforma en un String para que posteriormente se ha más facil la
-	 * modificación estética del número mediante funciones substring
-	 *
-	 * @return Devuelve un int en una cadena de texto
-	 */
-	public static String presupuestoRandom() {
-		String cadena = Integer.toString((int) (Math.random() * 90000000 + 10000000));
-		return cadena;
-	}
-
-	/**
-	 * Método que sirve para generar por teclado un número que el usuario elija
-	 * 
-	 * @return Devuelve un int en una cadena de texto
-	 */
-
-	public static String presupuestoMano() {
-		int num = 0;
-		int contador = 0;
-		Scanner lector = new Scanner(System.in);
-		try {
-			while (num < 9999999 || num > 999999999) {
-				if (contador != 0) {
-					System.out.println("El numero es incorrecto (10.000.000-100.000.000");
-				}
-				num = lector.nextInt();
-				contador++;
-			}
-		} catch (Exception e) {
-
-		}
-
-		return Integer.toString(num);
-	}
 }

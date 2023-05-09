@@ -65,30 +65,30 @@ public class sql {
 				sql = "UPDATE peliculas SET nombre='" + pelicula.getNombre() + "',fecha='" + pelicula.getFecha()
 						+ "',genero='" + pelicula.getGenero() + "',valoracion=" + pelicula.getValoracion()
 						+ " where nombre='" + texto + "'";
-				
+
 				confirmacion(resultado);
 
 				break;
 			case 2:
 				System.out.println("Introduce el nuevo nombre");
-				
-				sql= "UPDATE peliculas SET nombre='"+validaciones.pedirTexto()+"' where nombre='"+texto+"'";
+
+				sql = "UPDATE peliculas SET nombre='" + validaciones.pedirTexto() + "' where nombre='" + texto + "'";
 				confirmacion(resultado);
 				break;
 			case 3:
 				System.out.println("Introduce la nueva fecha");
-				sql= "UPDATE peliculas SET fecha='"+validaciones.pedirFecha()+"' where nombre='"+texto+"'";
+				sql = "UPDATE peliculas SET fecha='" + validaciones.pedirFecha() + "' where nombre='" + texto + "'";
 				confirmacion(resultado);
 
 				break;
 			case 4:
 				System.out.println("Introduce el nuevo genero");
-				sql= "UPDATE peliculas SET genero='"+validaciones.pedirTexto()+"' where nombre='"+texto+"'";
+				sql = "UPDATE peliculas SET genero='" + validaciones.pedirTexto() + "' where nombre='" + texto + "'";
 				confirmacion(resultado);
 				break;
 			default:
 				System.out.println("Introduce la nueva valoracion");
-				sql= "UPDATE peliculas SET nombre='"+validaciones.pedirVal()+"' where nombre='"+texto+"'";
+				sql = "UPDATE peliculas SET nombre='" + validaciones.pedirVal() + "' where nombre='" + texto + "'";
 				confirmacion(resultado);
 
 			}
@@ -149,9 +149,8 @@ public class sql {
 			rs = sentenciaSQL.executeQuery(sql);
 
 			while (rs.next()) {
-				System.out.println("nombre: " + rs.getString("nombre") + ", fecha: "
-						+ rs.getString("fecha") + ", genero: " + rs.getString("genero") + " y valoracion: "
-						+ rs.getFloat("valoracion"));
+				System.out.println("NOMBRE: " + rs.getString("nombre") + ", FECHA: " + rs.getString("fecha")
+						+ ", GENERO: " + rs.getString("genero") + " y VALORACION: " + rs.getFloat("valoracion"));
 				resultado++;
 
 			}
@@ -177,6 +176,14 @@ public class sql {
 			System.out.println("La pelicula no existe");
 		}
 
+	}
+	private static void conexion(Connection conexion, Statement sentenciaSQL) throws SQLException, ClassNotFoundException {
+		conexion = null;
+		sentenciaSQL = null;
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		conexion = DriverManager.getConnection("jdbc:mysql://localhost/crudbbdd", "root", "");
+		sentenciaSQL = conexion.createStatement();
 	}
 
 }
