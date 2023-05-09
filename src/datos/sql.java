@@ -1,5 +1,6 @@
 package datos;
 
+import utilidades.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -38,24 +39,60 @@ public class sql {
 		}
 	}
 
-	public static void ModificarPeli(String texto, Pelicula peliculas) throws ClassNotFoundException, SQLException {
+	public static void ModificarPeli(String texto) throws ClassNotFoundException, SQLException {
 		Connection conexion = null;
 		Statement sentenciaSQL = null;
-		int resultado = 0;
+		int resultado = 1;
 		String sql = "";
+		Pelicula pelicula;
 
 		try {
+
 			Class.forName("com.mysql.jdbc.Driver");
 			conexion = DriverManager.getConnection("jdbc:mysql://localhost/crudbbdd", "root", "");
 
 			sentenciaSQL = conexion.createStatement();
-			sql = "UPDATE peliculas SET nombre='" + peliculas.getNombre() + "',fecha='" + peliculas.getFecha()
-					+ "',genero='" + peliculas.getGenero() + "',valoracion=" + peliculas.getValoracion()
-					+ " where nombre='" + texto + "'";
+
+			System.out.println("(1) Modificar TODO");
+			System.out.println("(2) Modificar NOMBRE");
+			System.out.println("(3) Modificar FECHA");
+			System.out.println("(4) Modificar VALORACION");
+			System.out.println("(5) Modificar PRESUPUESTO");
+
+			switch (validaciones.pedirNum()) {
+			case 1:
+				pelicula = utilidades.caracteristicasPeli("Introduzca los nuevos datos");
+				sql = "UPDATE peliculas SET nombre='" + pelicula.getNombre() + "',fecha='" + pelicula.getFecha()
+						+ "',genero='" + pelicula.getGenero() + "',valoracion=" + pelicula.getValoracion()
+						+ " where nombre='" + texto + "'";
+				
+				confirmacion(resultado);
+
+				break;
+			case 2:
+				System.out.println("Introduce el nuevo nombre");
+				
+				sql= "UPDATE peliculas SET nombre='"+validaciones.pedirTexto()+"' where nombre='"+texto+"'";
+				confirmacion(resultado);
+				break;
+			case 3:
+				System.out.println("Introduce la nueva fecha");
+				sql= "UPDATE peliculas SET fecha='"+validaciones.pedirFecha()+"' where nombre='"+texto+"'";
+				confirmacion(resultado);
+
+				break;
+			case 4:
+				System.out.println("Introduce el nuevo genero");
+				sql= "UPDATE peliculas SET genero='"+validaciones.pedirTexto()+"' where nombre='"+texto+"'";
+				confirmacion(resultado);
+				break;
+			default:
+				System.out.println("Introduce la nueva valoracion");
+				sql= "UPDATE peliculas SET nombre='"+validaciones.pedirVal()+"' where nombre='"+texto+"'";
+				confirmacion(resultado);
+
+			}
 			resultado = sentenciaSQL.executeUpdate(sql);
-
-			confirmacion(resultado);
-
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			System.out.println("Error");
@@ -64,7 +101,6 @@ public class sql {
 			conexion.close();
 
 		}
-		System.out.println("conectado/desconectado");
 
 	}
 
@@ -95,13 +131,13 @@ public class sql {
 
 	}
 
-	public static void buscar(String texto) throws SQLException, ClassNotFoundException {
+	public static String buscar(String texto) throws SQLException, ClassNotFoundException {
 
 		// TODO Auto-generated method stub
 		Connection conexion = null;
 		Statement sentenciaSQL = null;
 		ResultSet rs;
-		int resultado=0;
+		int resultado = 0;
 		String sql = "";
 
 		try {
@@ -113,10 +149,14 @@ public class sql {
 			rs = sentenciaSQL.executeQuery(sql);
 
 			while (rs.next()) {
-				System.out.println("id: " + rs.getInt("id") + "nombre: " + rs.getString("nombre") + " fecha: "
-						+ rs.getString("fecha") + " genero: " + rs.getString("genero") + " valoracion: "
+				System.out.println("nombre: " + rs.getString("nombre") + ", fecha: "
+						+ rs.getString("fecha") + ", genero: " + rs.getString("genero") + " y valoracion: "
 						+ rs.getFloat("valoracion"));
 				resultado++;
+
+			}
+			if (resultado == 0) {
+				texto = "nulo";
 			}
 			confirmacion(resultado);
 		} catch (SQLException ex) {
@@ -127,14 +167,16 @@ public class sql {
 			conexion.close();
 
 		}
+		return texto;
 	}
+
 	private static void confirmacion(int num) {
 		if (num >= 1) {
 			System.out.println("Procedimiento realizado correctamente");
-		}else {
+		} else {
 			System.out.println("La pelicula no existe");
 		}
-		
+
 	}
 
 }

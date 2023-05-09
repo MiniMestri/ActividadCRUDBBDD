@@ -14,7 +14,7 @@ public class utilidades {
 	 */
 	public static void menu() {
 		int eleccion = 0;
-
+		String texto="";
 		do {
 			try {
 				System.out.println("-------------------------");
@@ -36,7 +36,10 @@ public class utilidades {
 					break;
 				case 2:
 					System.out.println("Que pelicula desea modificar");
-					sql.ModificarPeli(validaciones.pedirTexto(), caracteristicasPeli("Introduce la nueva pelicula"));
+					texto=sql.buscar(validaciones.pedirTexto());
+					if(texto!="nulo") {
+					sql.ModificarPeli(texto);
+					}
 					break;
 				case 3:
 					System.out.println("Que pelicula desea borrar");
