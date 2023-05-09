@@ -1,6 +1,7 @@
 package utilidades;
 
 import java.util.InputMismatchException;
+import datos.sql;
 import datos.Pelicula;
 
 public class utilidades {
@@ -13,7 +14,6 @@ public class utilidades {
 	 */
 	public static void menu() {
 		int eleccion = 0;
-
 
 		do {
 			try {
@@ -32,16 +32,19 @@ public class utilidades {
 				eleccion = validaciones.pedirNum();
 				switch (eleccion) {
 				case 1:
-				
+					sql.crearPeli(caracteristicasPeli("Introduce una pelicula"));
 					break;
 				case 2:
-				
+					System.out.println("Que pelicula desea modificar");
+					sql.ModificarPeli(validaciones.pedirTexto(), caracteristicasPeli("Introduce la nueva pelicula"));
 					break;
 				case 3:
-					
+					System.out.println("Que pelicula desea borrar");
+					sql.BorrarPeli(validaciones.pedirTexto());
 					break;
 				case 4:
-				
+					System.out.println("Que pelicula desea buscar");
+					sql.buscar(validaciones.pedirTexto());
 					break;
 				default:
 					System.out.println("GRACIAS por volver a corregir a MiniMestri =D");
@@ -71,22 +74,19 @@ public class utilidades {
 	public static Pelicula caracteristicasPeli(String texto) {
 		String nombre = "";
 		String fecha = "";
-		String genero="";
+		String genero = "";
 		float valoracion = 0;
-		try {
-			System.out.println(texto);
-			System.out.println("Nombre: ");
-			nombre = validaciones.pedirTexto();
-			System.out.println("Fecha: ");
-			fecha = validaciones.pedirFecha();
-			System.out.println("Genero: ");
-			genero=validaciones.pedirTexto();
-			System.out.println("Valoracion: ");
-			valoracion = validaciones.pedirVal();
-		} catch (Exception e) {
 
-		}
+		System.out.println(texto);
+		System.out.println("Nombre: ");
+		nombre = validaciones.pedirTexto();
+		System.out.println("Fecha: ");
+		fecha = validaciones.pedirFecha();
+		System.out.println("Genero: ");
+		genero = validaciones.pedirTexto();
+		System.out.println("Valoracion: ");
+		valoracion = validaciones.pedirVal();
 
-		return new Pelicula("","","",0);
+		return new Pelicula(nombre, fecha, genero, valoracion);
 	}
 }
