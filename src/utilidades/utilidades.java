@@ -8,13 +8,11 @@ public class utilidades {
 	/**
 	 * Menu gráfico y tabla switch que contienen los métodos para interactuar con el
 	 * menú CRUD El menú está controlado por las funciones try-catch para controlar
-	 * las excepciones surgidas en la interacción del usuario-maquina Además crea un
-	 * objeto de la clase ListaPeliculas para el almacenamiento de los objetos de la
-	 * clase "Peliculas"
+	 * las excepciones surgidas en la interacción del usuario-maquina.
 	 */
 	public static void menu() {
 		int eleccion = 0;
-		String texto="";
+		String texto = "";
 		do {
 			try {
 				System.out.println("-------------------------");
@@ -36,9 +34,9 @@ public class utilidades {
 					break;
 				case 2:
 					System.out.println("Que pelicula desea modificar");
-					texto=sql.buscar(validaciones.pedirTexto());
-					if(texto!="nulo") {
-					sql.ModificarPeli(texto);
+					texto = sql.buscar(validaciones.pedirTexto());
+					if (texto != "nulo") {
+						sql.ModificarPeli(texto);
 					}
 					break;
 				case 3:
@@ -67,12 +65,12 @@ public class utilidades {
 	}
 
 	/**
-	 * Método para crear un objeto de la clase "Peliculas" con sus respectivos
+	 * Método para crear un objeto de la clase "Pelicula" con sus respectivos
 	 * atributos
 	 *
 	 * @param texto Cadena de texto que sirve como enunciado
-	 * @return Un objeto de la clase "Peliculas" que será ingresado, mediante otros
-	 *         métodos, en el arraylist "contenedor" de la clase "ListaPeliculas
+	 * @return Un objeto de la clase "Pelicula" que será ingresado, mediante otros
+	 *         métodos.
 	 */
 	public static Pelicula caracteristicasPeli(String texto) {
 		String nombre = "";
