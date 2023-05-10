@@ -71,7 +71,7 @@ class JUNIT {
 	}
 		
 	@Test
-	public void EliminrPeli() throws ClassNotFoundException, SQLException {
+	public void EliminarPeli() throws ClassNotFoundException, SQLException {
 		Pelicula aux= new Pelicula("fast","2015","carreras",5.8f);
 		Pelicula peli3 = new Pelicula("jurassic", "2001", "ciencia ficcion", 6.9f);
 		
@@ -91,6 +91,8 @@ class JUNIT {
 		sql.crearPeli(aux);
 		assertNotEquals(sql.buscar(peli1.getNombre()), "nulo");
 		assertNotEquals(sql.buscar(aux.getNombre()), "nulo");
+		assertEquals(sql.buscar(peli1.getNombre()), "avatar");
+		assertEquals(sql.buscar(aux.getNombre()), "fast");
 		
 	}
 }
