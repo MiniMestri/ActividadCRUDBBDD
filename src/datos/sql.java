@@ -52,6 +52,7 @@ public class sql {
 			conexion.close();
 
 		}
+		
 	}
 
 	/**
