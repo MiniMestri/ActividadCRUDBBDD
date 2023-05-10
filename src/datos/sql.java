@@ -84,8 +84,8 @@ public class sql {
 			System.out.println("(1) Modificar TODO");
 			System.out.println("(2) Modificar NOMBRE");
 			System.out.println("(3) Modificar FECHA");
-			System.out.println("(4) Modificar VALORACION");
-			System.out.println("(5) Modificar PRESUPUESTO");
+			System.out.println("(4) Modificar GENERO");
+			System.out.println("(5) Modificar VALORACION");
 
 			switch (validaciones.pedirNum()) {
 			case 1:
@@ -109,9 +109,9 @@ public class sql {
 				sql = "UPDATE peliculas SET genero='" + validaciones.pedirTexto() + "' where nombre='" + texto + "'";
 
 				break;
-			default:
+			case 5:
 				System.out.println("Introduce la nueva valoracion");
-				sql = "UPDATE peliculas SET nombre='" + validaciones.pedirVal() + "' where nombre='" + texto + "'";
+				sql = "UPDATE peliculas SET valoracion='" + validaciones.pedirVal() + "' where nombre='" + texto + "'";
 
 			}
 
